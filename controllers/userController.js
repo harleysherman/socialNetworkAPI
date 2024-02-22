@@ -17,11 +17,9 @@ module.exports = {
   //http://localhost:3001/user/:userId
   async getUserById(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.userId }).populate(
-        "user"
-      );
+      const user = await User.findOne({ _id: req.params.userId });
 
-      !post
+      !user
         ? res.status(404).json({ message: "No user with that ID" })
         : res.json(user);
     } catch (err) {
@@ -41,11 +39,14 @@ module.exports = {
   //Put an update for user by id
   //http://localhost:3001/user/:id
   async updateUser(req, res) {
+    console.log("going to update");
     try {
+      console.log(req.body);
       // `doc` is the document _before_ `update` was applied
       const updatedUser = await User.findOneAndUpdate(
-        { _id: req.params.id },
-        req.body
+        { _id: req.params.userId },
+        req.body,
+        { new: true },
       );
       res.json(updatedUser);
     } catch (err) {
@@ -53,13 +54,13 @@ module.exports = {
     }
   },
   //Delete a user by id
-  //http://loaclhost:3001/user/:id
+  //http://loaclhost:3001/user/:userId
   async deleteUser(req, res) {
     try {
-      const deleteUser = await User.findOneAndUpdate(
+      const deleteUser = await User.deleteOne(
         { _id: req.params.userId },
-        { $pull: { user: { userId: req.params.userId } } },
-        { runValidators: true, new: true }
+        // { $pull: { user: { userId: req.params.userId } } },
+        // { runValidators: true, new: true }
       );
 
       if (!deleteUser) {
