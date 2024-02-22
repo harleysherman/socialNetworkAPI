@@ -19,8 +19,8 @@
 //       "thought"
 //     );
 
-//     !thought
-//       ? res.status(404).json({ message: "No thought with that ID" })
+//     thought
+//        res.status(404).json({ message: "No thought with that ID" })
 //       : res.json(thought);
 //   } catch (err) {
 //     res.status(500).json(err);
@@ -103,3 +103,32 @@
 //       res.status(500).json(err);
 //     }
 //   });
+
+const router = require('express').Router();
+const {
+  getThoughts,
+  getThoughtById,
+  getNewThought,
+  updateThoughtById,
+  deleteThoughtById,
+  addReaction,
+  deleteReaction,
+} = require('../../controllers/thoughtController');
+
+// /api/thought
+router.route('/').get(getThoughts);
+
+// /api/thought/:thoughtId
+router
+  .route('/thought/:thoughtId')
+  .get(getThoughtById)
+  .post(getNewThought)
+  .put(updateThoughtById)
+  .delete(deleteThoughtById);
+
+// /api/thought/:thoughtId/reactions
+router.route('/thoughts/:thoughtId/reactions')
+    .post(addReaction)
+    .delete(deleteReaction);
+
+module.exports = router;
