@@ -41,7 +41,7 @@ router.post("/user", async (req, res) => {
 router.put("/user/:id", async (req, res) => {
   try {
     // `doc` is the document _before_ `update` was applied
-    const updatedUser = await Character.findOneAndUpdate(
+    const updatedUser = await User.findOneAndUpdate(
       { _id: req.params.id },
       req.body
     );
@@ -52,6 +52,23 @@ router.put("/user/:id", async (req, res) => {
 });
 
 //Delete a user by id
+router.delete('/user/:id',  async (req, res) => {
+    try {
+      const deleteUser = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { responses: { responseId: req.params.userId } } },
+        { runValidators: true, new: true }
+      )
+
+      if (!deleteUser) {
+        return res.status(404).json({ message: 'No user with this id!' });
+      }
+
+      res.json(deleteUser);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 //Remove user's thoughts when user is deleted??
 
@@ -71,3 +88,20 @@ router.post("/users/:userId/friends/:friendId", async (req, res) => {
 });
 
 //Delete a friend
+router.delete('/user/:id/friends/:friendId',  async (req, res) => {
+    try {
+      const deleteFriend = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { responses: { friend: req.params.friendId } } },
+        { runValidators: true, new: true }
+      )
+
+      if (!deleteFriend) {
+        return res.status(404).json({ message: 'No friend with this id!' });
+      }
+
+      res.json(deleteFriend);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
