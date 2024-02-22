@@ -1,4 +1,4 @@
-// const { User } = require("../models");
+//const { User } = require("../models");
 // const router = require("express").Router();
 
 // // Get all users
@@ -222,25 +222,24 @@ const {
   deleteUser,
   addFriend,
   deleteFriend,
-} = require('../../controllers/thoughtController');
+} = require('../../controllers/userController');
 
 // /api/
 router.route('/').get(getUsers);
 
 // /api/user
-router.route('/user').get(postNewUser);
+router.route('/').post(postNewUser);
 
 // /api/user/:userId
 router
-  .route('/user/:userId')
+  .route('/:userId')
   .get(getUserById)
 //.post(getNewThought)
   .put(updateUser)
   .delete(deleteUser);
 
-
 // /api/users/:userId/friends/:friendId
-router.route('/users/:userId/friends/:friendId')
+router.route('/:userId/friends/:friendId')
     .post(addFriend)
     .delete(deleteFriend);
 

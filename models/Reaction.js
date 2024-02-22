@@ -9,5 +9,4 @@ const reactionSchema = new Schema({
     createdAt: { type: Date, default: Date.now() },
   });
   
-  module.exports = Schema;
-  
+  module.exports = reactionSchema;

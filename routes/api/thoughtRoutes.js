@@ -120,14 +120,14 @@ router.route('/').get(getThoughts);
 
 // /api/thought/:thoughtId
 router
-  .route('/thought/:thoughtId')
+  .route('/:thoughtId')
   .get(getThoughtById)
   .post(getNewThought)
   .put(updateThoughtById)
   .delete(deleteThoughtById);
 
 // /api/thought/:thoughtId/reactions
-router.route('/thoughts/:thoughtId/reactions')
+router.route('/:thoughtId/reactions')
     .post(addReaction)
     .delete(deleteReaction);
 
