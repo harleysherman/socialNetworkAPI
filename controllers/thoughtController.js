@@ -38,13 +38,13 @@ module.exports = {
     }
   },
   //Put an update for thought by id
-  //http:localhost:3001/thought/:thoughtId
+  //http:localhost:3001/thought/
   async updateThoughtById(req, res) {
     try {
-      // `doc` is the document _before_ `update` was applied
       const updatedThought = await Thought.findOneAndUpdate(
         { _id: req.params.userId },
-        req.body
+        req.body,
+        { new: true },
       );
       res.json(updatedThought);
     } catch (err) {

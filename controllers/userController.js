@@ -41,7 +41,7 @@ module.exports = {
   async updateUser(req, res) {
     console.log("going to update");
     try {
-      console.log(req.body);
+      //console.log(req.body);
       // `doc` is the document _before_ `update` was applied
       const updatedUser = await User.findOneAndUpdate(
         { _id: req.params.userId },
