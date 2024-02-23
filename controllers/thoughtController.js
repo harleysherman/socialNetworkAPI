@@ -16,9 +16,7 @@ module.exports = {
   //http://localhost:3001/thought/:thoughtId
   async getThoughtById(req, res) {
     try {
-      const thought = await Thought.findOne({ _id: req.params.thoughtId }).populate(
-        "thought"
-      );
+      const thought = await Thought.findOne({ _id: req.params.thoughtId });
   
       !thought
         ? res.status(404).json({ message: "No thought with that ID" })
@@ -28,16 +26,16 @@ module.exports = {
     }
   },
   //Post a new thought
-  //http://localhost:3001/thought/:userId
+  //http://localhost:3001/thought/
   async createThought (req, res) {
-    console.log("creating thought");
+    //console.log("creating thought");
     try {
       const newThought = await Thought.create(req.body);
       res.json(newThought);
-      console.log(newThought);
+      //console.log(newThought);
     } catch (err) {
       res.status(500).json(err);
-      console.log(err);
+      //console.log(err);
     }
   },
   //Put an update for thought by id
@@ -45,7 +43,7 @@ module.exports = {
   async updateThoughtById(req, res) {
     try {
       const updatedThought = await Thought.findOneAndUpdate(
-        { _id: req.params.userId },
+        { _id: req.params.thoughtId },
         req.body,
         { new: true },
       );
@@ -58,31 +56,36 @@ module.exports = {
   //http://localhost:3001/thought/:thoughtId
   async deleteThoughtById(req, res) {
     try {
-      const deleteThought = await Thought.findOneAndUpdate(
+      console.log("Here in try {}");
+      const deleteThought = await Thought.deleteOne(
         { _id: req.params.thoughtId },
-        { $pull: { thought: { thoughtId: req.params.thoughtId } } },
-        { runValidators: true, new: true }
-      )
+        // { $pull: { thought: { thoughtId: req.params.thoughtId } } },
+        // { runValidators: true, new: true }
+      );
+      console.log(deleteThought);
 
       if (!deleteThought) {
         return res.status(404).json({ message: 'No thought with this id!' });
       }
 
-      res.json(deleteUser);
+      res.json(deleteThought);
     } catch (err) {
       res.status(500).json(err);
+      console.log(err);
     }
   },
   //Post to add reaction to thought list
   //http://localhost:3001/thoughts/:thoughtId/reactions
-  async addReaction(req, res) {
+  async postReaction(req, res) {
     try {
-      const addReaction = Thought.findOneAndUpdate(
+      console.log("in the try");
+      const postReaction = Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        { $addToSet: { reaction: req.params.reactions } },
+        { $addToSet: { reaction: req.body } },
         { new: true }
       )
-      res.json(addReaction);
+      res.json(postReaction);
+      console.log(postReaction);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
