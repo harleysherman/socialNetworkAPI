@@ -29,12 +29,15 @@ module.exports = {
   },
   //Post a new thought
   //http://localhost:3001/thought/:userId
-  async getNewThought (req, res) {
+  async createThought (req, res) {
+    console.log("creating thought");
     try {
       const newThought = await Thought.create(req.body);
       res.json(newThought);
+      console.log(newThought);
     } catch (err) {
       res.status(500).json(err);
+      console.log(err);
     }
   },
   //Put an update for thought by id
