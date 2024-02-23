@@ -79,7 +79,7 @@ module.exports = {
   async addFriend(req, res) {
     try {
       console.log("in the try");
-      const newFriend = User.findOneAndUpdate(
+      const newFriend = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
         { new: true }
@@ -95,7 +95,7 @@ module.exports = {
   //http://localhost:3001/user/:id/friends/:friendId
   async deleteFriend(req, res) {
     try {
-      const deleteFriend = await User.findOneAndUpdate(
+      const deleteFriend = await User.deleteOne(
         { _id: req.params.userId },
         { $pull: { user: { friend: req.params.friendId } } },
         { runValidators: true, new: true }
