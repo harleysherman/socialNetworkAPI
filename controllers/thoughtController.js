@@ -79,9 +79,9 @@ module.exports = {
   async postReaction(req, res) {
     try {
       console.log("in the try");
-      const postReaction = Thought.findOneAndUpdate(
+      const postReaction = Thought.create(
         { _id: req.params.thoughtId },
-        { $addToSet: { reaction: req.body } },
+        { $addToSet: { reactionBody: req.body.reactionBody } },
         { new: true }
       )
       res.json(postReaction);
