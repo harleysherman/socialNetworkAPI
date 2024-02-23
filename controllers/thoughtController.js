@@ -8,7 +8,7 @@ module.exports = {
       const thoughts = await Thought.find();
       res.json(thoughts);
     } catch (err) {
-      console.error({ message: err });
+      //console.error({ message: err });
       return res.status(500).json(err);
     }
   },
@@ -56,7 +56,7 @@ module.exports = {
   //http://localhost:3001/thought/:thoughtId
   async deleteThoughtById(req, res) {
     try {
-      console.log("Here in try {}");
+      //console.log("Here in try {}");
       const deleteThought = await Thought.deleteOne(
         { _id: req.params.thoughtId },
         // { $pull: { thought: { thoughtId: req.params.thoughtId } } },
@@ -71,14 +71,14 @@ module.exports = {
       res.json(deleteThought);
     } catch (err) {
       res.status(500).json(err);
-      console.log(err);
+      //console.log(err);
     }
   },
   //Post to add reaction to thought list
   //http://localhost:3001/thoughts/:thoughtId/reactions
   async postReaction(req, res) {
     try {
-      console.log("in the try");
+      //console.log("in the try");
       const postReaction = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
         { $addToSet: { reactions: req.body } },
@@ -87,7 +87,7 @@ module.exports = {
       res.json(postReaction);
       console.log(postReaction);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       res.status(500).json(err);
     }
   },

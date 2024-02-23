@@ -78,14 +78,14 @@ module.exports = {
   //http://localhost:3001/users/:userId/friends/:friendId
   async addFriend(req, res) {
     try {
-      console.log("in the try");
+      //console.log("in the try");
       const newFriend = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
         { new: true }
       );
       res.json(newFriend);
-      console.log(newFriend);
+      //console.log(newFriend);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
