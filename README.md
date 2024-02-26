@@ -33,7 +33,7 @@ Here's the GitHub link where the repo lives:
 [socialNetworkAPI](https://github.com/harleysherman/socialNetworkAPI)
 
 Here's the video link where the video demo lives:
-[videoLink](https://github.com/harleysherman/noteTaker)
+[videoLink](https://drive.google.com/file/d/17T2H6v49b6ak8QSqHOo-EZ_3_c5uuGCR/view)
 
 ## Credits
 

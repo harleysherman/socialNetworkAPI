@@ -97,14 +97,14 @@ module.exports = {
     try {
       console.log("in the try");
       const deleteFriend = await User.findOneAndUpdate(
-        { _id: req.params.userId }, //filter--where
-        { $pull: { user: { friend: req.params.friendId } } }, //update-pull particular id
-        { runValidators: true, new: true } //new: true-- always needed
+        { _id: req.params.userId },
+        { $pull: { friends: req.params.friendId } },
+        { runValidators: true, new: true }
       );
       console.log(deleteFriend);
 
       if (!deleteFriend) {
-        return res.status(404).json({ message: "No friend with this id!" }); //deleteFriend is null
+        return res.status(404).json({ message: "No friend with this id!" });
       }
 
       res.json(deleteFriend);

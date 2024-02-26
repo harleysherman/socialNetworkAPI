@@ -84,8 +84,8 @@ module.exports = {
         { $addToSet: { reactions: req.body } },
         { new: true }
       );
-      res.json(postReaction);
       console.log(postReaction);
+      res.json(postReaction);
     } catch (err) {
       //console.log(err);
       res.status(500).json(err);
